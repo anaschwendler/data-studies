@@ -229,10 +229,21 @@ def replace(text, patterns=replacement_patterns):
     return s
 
 
-# In[18]:
+# In[21]:
 
 
 print(replace("Coé, pq vc fez isso?"))
+
+
+# ### Extra: Enchant
+# 
+# Existe uma biblioteca que faz correção ortográfica chamada (Enchant)[http://pythonhosted.org/pyenchant/tutorial.html], mas ela não possui dicionário em português:
+
+# In[22]:
+
+
+import enchant
+print(enchant.list_languages())
 
 
 # Análisando a frequência relativa de palavras
