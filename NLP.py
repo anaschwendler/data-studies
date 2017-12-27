@@ -98,7 +98,7 @@ sent_tokenizer = PunktSentenceTokenizer(text)
 
 
 sents = sent_tokenizer.tokenize(text)
-sents
+sents[0:10]
 
 
 # Como podemos observador, as sentenças são separadas (tokenizadas) em conversas, por que o `PunktSentenceTokenizer` usa um algorítmo de unsupervised learning para aprender o que constitui uma quebra de sentença. É não-supervisionado por que você não precisa dar nenhum texto para treinamento do algoritmo, apenas o texto em si.
@@ -135,6 +135,19 @@ stem_acidente = stemmer.stem(words_without_stop[1]) #acidente
 print(stem_acidente)
 
 
+# Outro stemmer que pode ser usado é o SnowballStemmer, que tem opção pt-br:
+
+# In[18]:
+
+
+from nltk.stem import SnowballStemmer
+
+stem_acidente = SnowballStemmer('portuguese')
+stem_acidente.stem(words_without_stop[1]) #acidente
+
+
+# Os resultados foram diferentes como podemos notar, então vale ver qual a aplicação, para decidir qual é o melhor.
+
 # ## 3. Transformando texto raw no formato do NLTK
 # 
 # NLTK tem seu formato de texto padrão, para converter o que é preciso ser feito:
@@ -144,7 +157,7 @@ print(stem_acidente)
 
 # ### 3.1 Tokenizando em palavras
 
-# In[11]:
+# In[12]:
 
 
 text_tokenized = word_tokenize(dataset)
@@ -153,7 +166,7 @@ type(text_tokenized)
 
 # ### 3.2 Convertendo
 
-# In[12]:
+# In[13]:
 
 
 text_format = nltk.Text(text_tokenized)
@@ -166,19 +179,19 @@ type(text_format)
 # 
 # A concordância nos permite ver palavras em contexto.
 
-# In[13]:
+# In[14]:
 
 
 text_format.concordance('acidente')
 
 
-# In[14]:
+# In[15]:
 
 
 text_format.similar('um')
 
 
-# In[15]:
+# In[16]:
 
 
 text_format.collocations()
@@ -186,7 +199,7 @@ text_format.collocations()
 
 # Análisando a frequência relativa de palavras
 
-# In[16]:
+# In[17]:
 
 
 from nltk import FreqDist
