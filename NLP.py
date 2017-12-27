@@ -137,7 +137,7 @@ print(stem_acidente)
 
 # Outro stemmer que pode ser usado é o SnowballStemmer, que tem opção pt-br:
 
-# In[18]:
+# In[11]:
 
 
 from nltk.stem import SnowballStemmer
@@ -197,9 +197,47 @@ text_format.similar('um')
 text_format.collocations()
 
 
-# Análisando a frequência relativa de palavras
+# ## 4. Convertendo palavras combinando com expressões regulares
+# 
+# Essa combinação é boa para converter palavras que foram diminuídas e problemas de linguagem. 
+# 
+# Por exemplo: 'Pq' > 'porque', 'Coé' > 'Qual é'
 
 # In[17]:
+
+
+import re
+import unicodedata 
+
+replacement_patterns = [
+    (r'pq', 'porque'),
+    (r'coe', 'qual e'),
+    (r'vc', 'voce'),
+]
+    
+def normalize_string(string):
+    if isinstance(string, str):
+        nfkd_form = unicodedata.normalize('NFKD', string.lower())
+        return nfkd_form.encode('ASCII', 'ignore').decode('utf-8')
+
+def replace(text, patterns=replacement_patterns):
+    s = normalize_string(text)
+    patterns = [(re.compile(regex), repl) for (regex, repl) in patterns]
+
+    for (pattern, repl) in patterns:
+        s = re.sub(pattern, repl, s)
+    return s
+
+
+# In[18]:
+
+
+print(replace("Coé, pq vc fez isso?"))
+
+
+# Análisando a frequência relativa de palavras
+
+# In[19]:
 
 
 from nltk import FreqDist
